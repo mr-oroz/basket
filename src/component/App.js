@@ -5,9 +5,10 @@ class App extends Component {
 
     state = {
         data: [
-            {id: 1, title: 'Asan', number: 1500},
-            {id: 2, title: 'Hasan', number: 1200},
-            {id: 3, title: 'Uson', number: 1700}
+            {id: 1, price: 2000, title: 'Asan', text: 'bla bla bla' },
+            {id: 2, price: 1500, title: 'Hasan', text: 'bla bla bla' },
+            {id: 3, price: 1800, title: 'Uson', text: "bla bla bla"},
+            {id: 3, price: 1750, title: 'Huson', text: "bla bla bla"}
         ]
     }
 
@@ -17,7 +18,7 @@ class App extends Component {
             <div className='container jumbotron'>
                 <div className='row'>
                     {this.state.data.map((item) => {
-                        return <Produck key={item.id} title={item.title} number={item.number}/>
+                        return <Produck key={item.id}{...item}/>
                     })}
                 </div>
             </div>
