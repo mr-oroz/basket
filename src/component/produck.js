@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
 
-class Produck extends Component {
-
+class Product extends Component {
     render() {
-        const {title, text, price} = this.props
+        const {title, id, text, price,rebate,image, addProduct} = this.props;
         return (
-            <div className="card col-3">
-                <img className="card-img-top" src="https://delo.ua/files/news/images/3679/78/picture2_preimuschestva-na_367978_p0.jpg" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">{title}</h5>
-                    <p className="card-text">{text}</p>
-                    <span href="#" className="btn btn-danger">Купить</span>
-                    <span style={{marginLeft: "10px"}} className='price'>{price} сом</span>
+            <div className=" col-3">
+                <div className="card">
+                    <img
+                        src={image}
+                        className="card-img-top" alt="..."/>
+                    <div className="card-body">
+                        <h5 className="card-title">{title}</h5>
+                        <p className="card-text">{text}</p>
+                        <span onClick={addProduct(id)} className="btn btn-primary">Купить</span><br/>
+                        <span className="rebate text-danger">{rebate} сом</span>
+                        <span style={{marginLeft: '10px',textDecoration: 'line-through'}} className="price">{price} сом</span>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default Produck;
+export default Product;
