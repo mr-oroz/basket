@@ -46,17 +46,33 @@ class App extends Component {
             const index = basket.findIndex((item) => item.id === id)
             if (index === -1) {
                 const item = {...data.find((item) => item.id === id)}
-                return {basket: [...basket, item]}
+                return {basket: [...basket, {...item,total:item.rebate, count: 1}]}
+            }
+            return {};
+        })
+    }
+    stepProduct = (id, step) => () => {
+        this.setState(({data, basket}) => {
+            const index = basket.findIndex((item) => item.id === id)
+            if (index !== -1) {
+                const index = basket.findIndex((item) => item.id === id)
+                const item = {...basket[index]}
+                item.count += step
+                if (item.count <= 0) {
+                    return {};
+                }
+                item.total = item.rebate * item.count
+                return {basket: [...basket.slice(0, index), item, ...basket.slice(index + 1)]}
             }
             return {};
         })
     }
 
     deleteProduct = (id) => () => {
-      this.setState(({basket}) => {
-          const index = basket.findIndex((item) => item.id === id)
-          return {basket:[...basket.slice(0,index),...basket.slice(index+1)]}
-      })
+        this.setState(({basket}) => {
+            const index = basket.findIndex((item) => item.id === id)
+            return {basket: [...basket.slice(0, index), ...basket.slice(index + 1)]}
+        })
     }
 
     render() {
@@ -65,12 +81,12 @@ class App extends Component {
                 <div className='container jumbotron'>
                     <div className="row">
                         {this.state.data.map((item) => {
-                            return <Product addProduct={this.addProduct}  key={item.id} {...item}/>
+                            return <Product addProduct={this.addProduct} key={item.id} {...item}/>
                         })}
 
                     </div>
                 </div>
-                <Basket deleteProduct={this.deleteProduct} basket={this.state.basket}/>
+                <Basket stepProduct={this.stepProduct} deleteProduct={this.deleteProduct} basket={this.state.basket}/>
             </div>
         );
     }
