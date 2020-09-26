@@ -41,10 +41,11 @@ class App extends Component {
         ],
         basket: []
     }
-    addProduct = (id) => () => {
+    addProduct = (id, step) => () => {
         this.setState(({data, basket}) => {
             const index = basket.findIndex((item) => item.id === id)
             if (index === -1) {
+                const index = basket.findIndex((item) => item.id === id)
                 const item = {...data.find((item) => item.id === id)}
                 return {basket: [...basket, {...item,total:item.rebate, count: 1}]}
             }
@@ -52,7 +53,7 @@ class App extends Component {
         })
     }
     stepProduct = (id, step) => () => {
-        this.setState(({data, basket}) => {
+        this.setState(({basket}) => {
             const index = basket.findIndex((item) => item.id === id)
             if (index !== -1) {
                 const index = basket.findIndex((item) => item.id === id)
